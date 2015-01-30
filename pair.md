@@ -49,7 +49,10 @@ The data we'll be working with can be found in `data/churn.csv`.
 
     ```
     function profit_curve(classifiers, cb, X_train, y_train, X_test, y_test):
-        Calculate the class probs from the test set (2 element array with percentages of 1's and 0's)
+    
+        Calculate the class probs from the test set (2 element array with percentages
+            of 1's and 0's)
+            
         for each classifer in classifiers:
             Build the model on the training set
             Get the predict probabilities for the test set
@@ -59,8 +62,8 @@ The data we'll be working with can be found in `data/churn.csv`.
                 Create an array of predictions of the test set where everything
                     after the threshold is True and everything before False
                 Build the confusion rates matrix
-                Calculate the expected profit by multipling the class probs with the cost benefit matrix
-                    and the confusion rates matrix
+                Calculate the expected profit by multipling the class probs with the
+                    cost benefit matrix and the confusion rates matrix
             Plot the expected profits for the classifier
     ```
 
@@ -74,7 +77,7 @@ The data we'll be working with can be found in `data/churn.csv`.
         * x-axis: Percentage of test instances (that are predicted True)
         * y-axis: Profit
 
-5. Run the `profit_curve` function with these models: Logistic Regression, Random Forest, Gradient Boosting and SVM. Don't forget to use sklearn's [StandardScalar](http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html) to scale your data first!
+5. Run the `profit_curve` function with these models: `Logistic Regression`, `Random Forest`, `AdaBoost`, `Gradient Boosting` and `SVM`. Don't forget to use sklearn's [StandardScalar](http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html) to scale your data first!
 
 6. What model and threshold yields the maximum profit? What proportion of the customer base does this target?
 
