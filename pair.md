@@ -147,4 +147,4 @@ Here is our cost benefit matrix:
     plt.show()
     ```
 
-8. What model and threshold yields the maximum profit? What proportion of the customer base does this target?
+8. What's the maximum profit that we can achieve and which model should we use to get it? What proportion of the customer base does this target?
