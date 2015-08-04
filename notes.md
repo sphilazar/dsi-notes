@@ -31,6 +31,8 @@ Models like Logistic Regression have a threshold that we can vary to make a trad
 
 The best model to pick really depends on our circumstances. We can use *Cost-Benefit Matrices* and *Profit Curves* to be more rigorous about this choice.
 
+You can review the notes from our first day of classification [here](https://github.com/zipfian/logistic-regression/blob/master/lecture.md).
+
 ## Cost Benefit Matrix
 
 The first step is to assign a dollar amount to each of the four cells in the confusion matrix.
@@ -99,3 +101,22 @@ Here's what the profit curve will look like:
 ![Profit Curve](images/profit_curve.png)
 
 The dotted gray line shows the profit curve of a random model, so our profit curve should always be above this line.
+
+Here's the pseudocode for computing the profit curve.
+
+```
+function profit_curve(costbenefit_matrix, predict_probas, labels):
+    Sort instances by their prediction strength (the probabilities)
+    For every instance in increasing order of probability:
+        Set the threshold to be the probability
+        Set everything above the threshold to the positive class
+        Calculate the confusion matrix
+        Compute the expected profit:
+            - multiply each of the 4 entries in the confusion matrix by
+            their associated entry in the cost-benefit matrix
+            - sum up these values
+            - divide by the total number of datapoints
+    return a list of the profits
+```
+
+Note the similarity to the pseudocode for the [ROC curve](https://github.com/zipfian/logistic-regression/blob/master/lecture.md#roc-curve)!

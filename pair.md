@@ -4,23 +4,49 @@ In this exercise, we are going to calculate the expected value given our cost-be
 
 The data we'll be working with can be found in `data/churn.csv`.
 
-1. Clean up the churn dataset with pandas. You should be predicting the "Churn?" column. You can drop the "State", "Area Code" and "Phone" columns as they won't be helpful features. Make sure to convert any yes/no columns to 1/0's.
+
+### Cost Benefit and Profit Curve Example
+
+Before we start coding, let's make sure we understand how to calculate the cost benefit matrix and profit curve. Take this really simple example of what the true labels are and the predicted probabilities.
+
+Say these are our results:
+
+| datapoint | true label | predicted probability |
+| --------- | ---------- | --------------------- |
+| 0 | 0 | 0.2 |
+| 1 | 0 | 0.6 |
+| 2 | 1 | 0.4 |
+
+Here is our cost benefit matrix:
+
+|                   | Actual Yes | Actual No |
+| ----------------- | ---------- | --------- |
+| **Predicted Yes** |          6 |        -3 |
+| **Predicted No**  |          0 |         0 |
+
+1. Write out the confusion matrix for each of the possible thresholds. There should be 4 confusion matricies.
+
+2. Calculate the profit for each of these confusion matrices.
+
+
+### Profit Curve Implementation
+
+1. Clean up the churn dataset with pandas. You should be predicting the "Churn?" column. You can drop the "State", "Area Code" and "Phone" columns. Make sure to convert any yes/no columns to 1/0's.
 
 2. Specify a cost-benefit matrix as a 2x2 `numpy` array. Each cell of the matrix will correspond to the corresponding cost/benefit of the outcome of a correct or incorrect classification. This matrix is domain specific, so choose something that makes sense for the churn problem. It should contain the cost of true positives, false positives, true negatives and false negatives in the following form:
 
-    ```
-    [tp   fp]
-    [fn   tn]
+    ```python
+    [[tp   fp]
+     [fn   tn]]
     ```
 
-3. Create a function `confusion_rates` that takes in a [confusion matrix](http://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html#sklearn.metrics.confusion_matrix) (2x2 numpy array) and returns a `numpy` array of the confusion rates in the following form:
+3. Since sklearn's [confusion matrix](http://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html#sklearn.metrics.confusion_matrix) function creates a flip-flopped confusion matrix, you will appreciate having your own.
 
-    ```
-    [tpr  fpr]
-    [fnr  tnr]
-    ```
-    
-    **Note:** sklearn's confusion matrix is, well, confusing. The TN are in the upper left and the TP in the lower right. Verify this by hand by looking at the results of this code:
+    Write a function `standard_confusion_matrix` which takes `y_true` and `y_predict` and returns the confusion matrix as a 2x2 numpy array of the form `[[tp fp] [fn tn]]`.
+
+    You may use sklearn's `confusion_matrix` function here, but having it in the standard form will reduce the amount of banging your head against the wall.
+
+    You can check how sklearn's function works by trying an example:
     
     ```python
     In [1]: from sklearn.metrics import confusion_matrix
@@ -34,51 +60,91 @@ The data we'll be working with can be found in `data/churn.csv`.
     array([[2, 0],
            [1, 4]])
     ```
-    For this example, TP = 4, TN = 2, FP = 0, FN = 1
-    
 
 4. Write a function `profit_curve` that takes these arguments:
-    * `classifiers` is a list of classifier objects (like `RandomForestClassifier` and `LogisticRegression`)
-    * `cb` is your cost-benefit matrix
-    * `X_train`
-    * `y_train`
-    * `X_test`
-    * `y_test`
+    * `cb`: your cost-benefit matrix
+    * `predict_probas`: predicted probability for each datapoint (between 0 and 1)
+    * `labels`: true labels for each data point (either 0 or 1)
 
     Here's the psuedocode for the `profit_curve` function. Note the similarity to building a ROC plot!
 
     ```
-    function profit_curve(classifiers, cb, X_train, y_train, X_test, y_test):
-    
-        Calculate the class probs from the test set (2 element array with percentages
-            of 1's and 0's)
-            
-        for each classifer in classifiers:
-            Build the model on the training set
-            Get the predict probabilities for the test set
-            Sort the probabilities
-            for each probability (in sorted order):
-                Set that probability as the threshold
-                Create an array of predictions of the test set where everything
-                    after the threshold is True and everything before False
-                Build the confusion rates matrix
-                Calculate the expected profit by multipling the class probs with the
-                    cost benefit matrix and the confusion rates matrix
-            Plot the expected profits for the classifier
+    function profit_curve(costbenefit_matrix, predict_probas, labels):
+        Sort instances by their prediction strength (the probabilities)
+        For every instance in increasing order of probability:
+            Set the threshold to be the probability
+            Set everything above the threshold to the positive class
+            Calculate the confusion matrix
+            Compute the expected profit:
+                - multiply each of the 4 entries in the confusion matrix by
+                their associated entry in the cost-benefit matrix
+                - sum up these values
+                - divide by the total number of datapoints
+        return a list of the profits
     ```
 
-    Hints:
-    * Use `predict_proba` method to get the probabilities from the classifier.
-    * Use [np.argsort](http://docs.scipy.org/doc/numpy/reference/generated/numpy.argsort.html) to sort the probabilities. This will give you the indices of the values sorted by the probabilities.
-    * See if you can get the 0/1 predictions based on the threshold without using a for loop. One way is to get the indicies that should be predicted positively (they are after the threshold), create a numpy array of zeros and then set all the ones that should be predicted positively to 1.
-    * Use sklearn to build the confusion matrix and use your function to get the confusion rates matrix from that.
-    * In python, you can do `class.__name__` to get the name of the class. For instance `LogisticRegression.__name__` will give `"LogisticRegression"` as a string, which you can use for labeling your plots.
-    * The axes of your graph:
-        * x-axis: Percentage of test instances (that are predicted True)
-        * y-axis: Profit
+5. Test your `profit_curve` function on the same toy example from above:
 
-5. Run the `profit_curve` function with these models: `Logistic Regression`, `Random Forest`, `AdaBoost`, `Gradient Boosting` and `SVM`. Don't forget to use sklearn's [StandardScalar](http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html) to scale your data first!
+    ```python
+    probas = np.array([0.2, 0.6, 0.4])
+    labels = np.array([0, 0, 1])
+    cb = np.array([[6, -3], [0, 0]])
+    ```
 
-6. What model and threshold yields the maximum profit? What proportion of the customer base does this target?
+    Do you get the same results?
 
-7. If we have a limited budget, which classifier would you choose? How about an unlimited budget?
+    **Note:** It's OK if you only have 3 results instead of 4 since your code doesn't do both extreme thresholds.
+
+    You can graph it too, but it's very silly with such a small example:
+
+    ```python
+    profits = profit_curve(cb, probas, labels)
+    percentages = np.arange(0, 100, 100. / len(profits))
+    plt.plot(percentages, profits, label='toy data')
+    plt.title("Profit Curve")
+    plt.xlabel("Percentage of test instances (decreasing by score)")
+    plt.ylabel("Profit")
+    plt.legend(loc='lower right')
+    plt.show()
+    ```
+
+6. Now you're ready to build the profit curve on the real data! You should implement the `plot_profit_curve` function which will take the following parameters:
+
+    ```
+    model, label, costbenefit, X_train, X_test, y_train, y_test
+    ```
+
+    I should be able to use it like this:
+
+    ```python
+    plot_profit_curve(LogisticRegression(),
+                      'Logistic Regression',
+                      np.array([[6, -3], [0, 0]]),
+                      X_train, X_test, y_train, y_test)
+    plt.legend(loc='lower right')
+    plt.show()
+    ```
+
+7. Now use the following code snippet to compare several models.
+
+    Note that if your `plot_profit_curve` function is calling `plt.show`, you will get multiple plots popping up instead of just one, so you should remove that.
+
+    ```python
+    from sklearn.linear_model import LogisticRegression as LR
+    from sklearn.ensemble import RandomForestClassifier as RF
+    from sklearn.ensemble import GradientBoostingClassifier as GBC
+    from sklearn.svm import SVC
+
+    cb = np.array([[6, -3], [0, 0]])
+    models = [RF(), LR(), GBC(), SVC(probability=True)]
+    for model in models:
+        plot_profit_curve(model, model.__class__.__name__, cb,
+                          X_train, X_test, y_train, y_test)
+    plt.title("Profit Curves")
+    plt.xlabel("Percentage of test instances (decreasing by score)")
+    plt.ylabel("Profit")
+    plt.legend(loc='lower right')
+    plt.show()
+    ```
+
+8. What model and threshold yields the maximum profit? What proportion of the customer base does this target?
