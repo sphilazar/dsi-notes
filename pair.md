@@ -24,7 +24,7 @@ Here is our cost benefit matrix:
 | **Predicted Yes** |          6 |        -3 |
 | **Predicted No**  |          0 |         0 |
 
-1. Write out the confusion matrix for each of the possible thresholds. There should be 4 confusion matricies.
+1. Write out the confusion matrix for each of the possible thresholds. There should be 4 confusion matrices.
 
 2. Calculate the profit for each of these confusion matrices.
 
@@ -79,7 +79,7 @@ Here is our cost benefit matrix:
                 - multiply each of the 4 entries in the confusion matrix by
                 their associated entry in the cost-benefit matrix
                 - sum up these values
-                - divide by the total number of datapoints
+                - divide by the total number of data points
         return a list of the profits
     ```
 
