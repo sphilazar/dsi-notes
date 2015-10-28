@@ -4,7 +4,7 @@ We've seen Confusion Matrices and ROC curves as a way to demonstrate the trade-o
 
 This is often referred to as the Precision & Recall tradeoff or the tradeoff between Sensitivity and Specificity.
 
-Basically, would you rather overpredict True and get lots of *False Positives* or overpredict False and get lots of *False Negatives*?
+Basically, would you rather over predict True and get lots of *False Positives* or over predict False and get lots of *False Negatives*?
 
 In the case of a spam filter, it's better to miss some spam and send them to the inbox than to send all the email to spam, so we care more about minimizing FP (misclassifying a real email as spam) than FN. In the case of fraud, we would rather not let fraud slip by, so we care more about minimizing FN than FP.
 
@@ -37,7 +37,7 @@ You can review the notes from our first day of classification [here](https://git
 
 The first step is to assign a dollar amount to each of the four cells in the confusion matrix.
 
-Say that our classifier is detecting whether a credit card charge is fraudulent. If we think a charge is fraudulent, we will call the customer, which costs us $5. If, however, we catch a fraudlent charge, we save ourselves $100. Since it still costs us the $5, we gain $95.
+Say that our classifier is detecting whether a credit card charge is fraudulent. If we think a charge is fraudulent, we will call the customer, which costs us $5. If, however, we catch a fraudulent charge, we save ourselves $100. Since it still costs us the $5, we gain $95.
 
 Here is our Cost-Benefit Matrix:
 
@@ -52,7 +52,7 @@ Note that this is built off the baseline of never detecting fraud at all. Also n
 
 The expected profit of a model is the expected value of the money we will make *per user* by deploying it.
 
-We can calculate this by multipying the entries of the Cost-Benefit Matrix by the entries of the Confusion Matrix and summing all the values and dividing by the total number of users.
+We can calculate this by multiplying the entries of the Cost-Benefit Matrix by the entries of the Confusion Matrix and summing all the values and dividing by the total number of users.
 
 Take a look at the following example Confusion Matrix.
 
@@ -115,7 +115,7 @@ function profit_curve(costbenefit_matrix, predict_probas, labels):
             - multiply each of the 4 entries in the confusion matrix by
             their associated entry in the cost-benefit matrix
             - sum up these values
-            - divide by the total number of datapoints
+            - divide by the total number of data points
     return a list of the profits
 ```
 
