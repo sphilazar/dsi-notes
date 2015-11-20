@@ -148,3 +148,98 @@ Here is our cost benefit matrix:
     ```
 
 8. What's the maximum profit that we can achieve and which model should we use to get it? What proportion of the customer base does this target?
+
+## Sampling Methods
+
+### Undersampling
+Finish writing this function: 
+
+```python
+def undersample(X, y, target):
+    """
+    INPUT:
+    X, y - your data
+    target - the intended percentage of positive
+             class observations in the output
+    OUTPUT:
+    X_undersampled, y_undersampled - undersampled data
+
+    `undersample` randomly discards negative observations from
+    X, y to achieve the target proportion
+    """
+    # determine how many negative (majority) observations to retain
+
+    # randomly discard negative (majority) class observations
+
+    return X_undersampled, y_undersampled
+	
+```
+
+### Oversampling
+Finish writing this function: 
+
+```python
+def oversample(X, y, target):
+    """
+    INPUT:
+    X, y - your data
+    target - the percentage of positive class 
+             observations in the output
+    OUTPUT:
+    X_oversampled, y_oversampled - oversampled data
+
+    `oversample` randomly replicates positive observations
+    in X, y to achieve the target proportion
+    """
+    # determine how many new positive observations to generate
+
+    # replicate randomly selected positive observations
+    
+    # combine new observations with original observations
+
+    return X_oversampled, y_oversampled
+	
+```
+
+### SMOTE (Synthetic Minority Oversampling Technique)  
+
+SMOTE is a method to randomly generate new minority class observations according to this procedure:  
+
+-  for each observation, find the k nearest neighbors  
+-  between each observation and each of its k nearest neighbors, generate a new observation with these properties:  
+  -  it's in the minority class (i.e. ```y = 0```)
+  -  the value of each feature is a random value between the value of that feature in the original observation and that of the nearest neighbor (i.e. ```x_original < x_new < x_neighbor``` for each feature and neighbor)
+
+Finish writing this function to implement SMOTE.
+
+```python
+def smote(X, y, target, k=None):
+    """
+    INPUT:
+    X, y - your data
+    target - the percentage of positive class 
+             observations in the output
+    k - k in k nearest neighbors
+
+    OUTPUT:
+    X_oversampled, y_oversampled - oversampled data
+
+    `smote` generates new observations from the positive (minority) class:
+    For details, see: https://www.jair.org/media/953/live-953-2037-jair.pdf
+    """
+    # fit a KNN model
+
+    # determine how many new positive observations to generate
+
+    # generate synthetic observations
+    
+    # combine synthetic observations with original observations
+
+    return X_smoted, y_smoted
+```
+
+
+## Comparing Methods
+1.  Test your functions on the churn dataset with Logistic Regression.
+2.  Try a range of target sample proportions with each of your sampling methods, and find the sample proportion that maximizes expected profit.
+3. Try the test in #2 several times, with a new train/test split each time. Does the expected profit and optimal threshold vary substantially? How might you deal with this variance? 
