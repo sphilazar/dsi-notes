@@ -206,7 +206,7 @@ def oversample(X, y, target):
 SMOTE is a method to randomly generate new minority class observations according to this procedure:  
 
 -  for each observation, find the k nearest neighbors  
--  between each observation and each of its k nearest neighbors, generate a new observation with these properties:  
+-  randomly select an observation and one its k nearest neighbors, then generate a new observation with these properties:  
   -  it's in the minority class (i.e. ```y = 0```)
   -  the value of each feature is a random value between the value of that feature in the original observation and that of the nearest neighbor (i.e. ```x_original < x_new < x_neighbor``` for each feature and neighbor)
 
