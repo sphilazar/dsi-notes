@@ -31,7 +31,7 @@ Models like Logistic Regression have a threshold that we can vary to make a trad
 
 The best model to pick really depends on our circumstances. We can use *Cost-Benefit Matrices* and *Profit Curves* to be more rigorous about this choice.
 
-You can review the notes from our first day of classification [here](https://github.com/zipfian/logistic-regression/blob/master/lecture.md).
+You can review our first day of classification [here](https://github.com/zipfian/logistic-regression/blob/master/pair.md).
 
 ## Cost Benefit Matrix
 
