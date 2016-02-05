@@ -119,4 +119,4 @@ function profit_curve(costbenefit_matrix, predict_probas, labels):
     return a list of the profits
 ```
 
-Note the similarity to the pseudocode for the [ROC curve](https://github.com/zipfian/logistic-regression/blob/master/lecture.md#roc-curve)!
+Note the similarity to the pseudocode for the [ROC curve](https://github.com/zipfian/logistic-regression/blob/master/pair.md)!
