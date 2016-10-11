@@ -71,7 +71,7 @@ Here is our cost benefit matrix:
     ```
     function profit_curve(costbenefit_matrix, predict_probas, labels):
         Sort instances by their prediction strength (the probabilities)
-        For every instance in increasing order of probability:
+        For every instance in decreasing order of probability:
             Set the threshold to be the probability
             Set everything above the threshold to the positive class
             Calculate the confusion matrix
