@@ -36,13 +36,13 @@ Here is our cost benefit matrix:
      [fn, tn]]
     ```
 
-3. Since sk-learn's [confusion matrix](http://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html#sklearn.metrics.confusion_matrix) function creates a flip-flopped confusion matrix, you will appreciate having your own that is ordered in the way you're familiar with.
+3. Since sklearn's [confusion matrix](http://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html#sklearn.metrics.confusion_matrix) function creates a flip-flopped confusion matrix, you will appreciate having your own that is ordered in the way you're familiar with.
 
     Write a function `standard_confusion_matrix()` which takes `y_true` and `y_predict` and returns the confusion matrix as a 2x2 numpy array of the form `[[tp, fp], [fn, tn]]`.
 
-    You may use sk-learn's `confusion_matrix()` function here, but having it in the standard form will reduce the amount of banging your head against the wall.
+    You may use sklearn's `confusion_matrix()` function here, but having it in the standard form will reduce the amount of banging your head against the wall.
 
-    You can check how sk-learn's function works by trying an example:
+    You can check how sklearn's function works by trying an example:
     
     ```python
     In [1]: from sklearn.metrics import confusion_matrix
@@ -119,7 +119,7 @@ Here is our cost benefit matrix:
     plt.show()
     ```
 
-    Note, if you have a sk-learn model stored as a variable, say `model`, you can use `model.__class__.__name__` to find out what the model is named.
+    Note, if you have a sklearn model stored as a variable, say `model`, you can use `model.__class__.__name__` to find out what the model is named.
 
 7. Now use the following code snippet to compare several models.
 
@@ -226,7 +226,7 @@ def smote(X, y, tp, k=None):
     For details, see: https://www.jair.org/media/953/live-953-2037-jair.pdf
 
     Notes: Currently the KNeighborsClassifier will throw a warning when calling
-           to the kneighbors method. Appears to be happening in sk-learn not
+           to the kneighbors method. Appears to be happening in sklearn not
            this usage of it.
 
     Parameters
@@ -240,7 +240,7 @@ def smote(X, y, tp, k=None):
     X_smoted : ndarray - 2D
     y_smoted : ndarray - 1D
     """
-    # fit a KNN model, why not use sk-learn's?
+    # fit a KNN model, why not use sklearn's?
 
     # determine how many new positive observations to generate
 
