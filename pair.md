@@ -2,22 +2,39 @@
 
 To start let's create a cost-benefit matrix considering a few different baselines.
 
-Suppose we have a business and we're concerned about users churning (leaving).
-Each user is worth $9 to us, so if they churn we will lose $9. We can prevent a user from churning by sending them a promotion, but it will cost us $3 regardless of whether the user was going to churn or not. We don't want to send a user a promotion if we don't have to, so we will build a model to predict if they will churn and send them the promotion if we think they will.
+Suppose we have a business and we're concerned about users churning (leaving). Each user is worth $9 to us, so if they churn we will lose $9. We can prevent a user from churning by sending them a promotion, but it will cost us $3 regardless of whether the user was going to churn or not. We don't want to send a user a promotion if we don't have to, so we will build a model to predict if they will churn and send them the promotion if we think they will.
 
-To create a cost-benefit matrix we need establish a baseline; we can do this many different ways. Create a cost-benefit matrix for the scenario above using each of these four baselines. **Work these out individually** and then discuss them with your partner to make sure you both understand them all.
+To create a cost-benefit matrix we need establish a baseline; we can do this many different ways. You can think of the baseline as the planned budget for the company. Any non-zero values in the cost-benefit matrix are deviations from that budget.
 
-1. **No users churn.** If a user does churn and we don't prevent it we will loose $9, but we won't lose or gain anything if they stay.
+For example, suppose the baseline budget was created assuming no users will ever churn. So if a user wasn't going to churn and we predict that correctly (so don't send a promotion) then we're on budget.
 
-2. **All users churn.** Now there should be a positive value if users don't churn and zero if they do (minus the cost of promotions).
 
-3. **Everyone gets a promotion.** The baseline is that we pay the cost of a promotion for everyone, and no one ever churns (regardless of whether they would have churned or not).
+|                        | Actual Positive | Actual Negative |
+| ---------------------- |:---------------:|:---------------:|
+| **Predicted Positive** |                 |                 |
+| **Predicted Negative** |                 |         0       |
 
-4. **No one gets a promotion.** The baseline is what would have actually happened for each user, assuming no promotion.
+If the user does churn and we don't send a promotion, we'll be at -$9 relative to the budget. If we predict they will churn we'll send a promotion, so we'll lose $3 whether they would have churned or not. So our final cost-benefit matrix is
 
-Discuss each of these with your partner. How will the profit curves for these differ? Will the optimum threshold change?
 
-Use the cost-benefit matrix from 4 for the remainder of the assignment.
+|                        | Actual Positive | Actual Negative |
+| ---------------------- |:---------------:|:---------------:|
+| **Predicted Positive** |       -3        |        -3       |
+| **Predicted Negative** |       -9        |         0       |
+
+Note that none of the cases are positive because our baseline budget was highly optimistic.
+
+Create additional cost-benefit matrix for the same scenario above using each of these four baseline budgets. Work these out individually and then discuss them with your partner to make sure you both understand them all.
+
+1. **All users churn.** This budget is highly pessimistic, so there should be a positive value if users don't churn and zero if they do (minus the cost of promotions).
+
+2. **Everyone gets a promotion.** Suppose the budget assumes that we will give a promotion to everyone. We will now make money if we don't give a promotion to someone who wasn't going to leave, but lose if we don't give a promotion to someone who does.
+
+3. **No one gets a promotion.** Suppose the budget assumes we aren't giving anyone promotions. Now the net profit is a measure of how much we will make by sending promotions to users we think might churn.
+
+Discuss each of these with your partner. How will the profit curves for these differ? How are they similar? Will the optimum threshold change?
+
+Use the cost-benefit matrix from 3 for the remainder of the assignment.
 
 ## Part 1: Profit Curves
 
