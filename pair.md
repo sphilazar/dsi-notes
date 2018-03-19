@@ -225,10 +225,6 @@ def smote(X, y, tp, k=None):
     """Generates new observations from the positive (minority) class.
     For details, see: https://www.jair.org/media/953/live-953-2037-jair.pdf
 
-    Notes: Currently the KNeighborsClassifier will throw a warning when calling
-           to the kneighbors method. Appears to be happening in sklearn not
-           this usage of it.
-
     Parameters
     ----------
     X  : ndarray - 2D
