@@ -1,3 +1,41 @@
+## Part 0: Cost-Benefit Matrices
+
+To start let's create a cost-benefit matrix considering a few different baselines.
+
+Suppose we have a business and we're concerned about users churning (leaving). Each user is worth $9 to us, so if they churn we will lose $9. We can prevent a user from churning by sending them a promotion, but it will cost us $3 regardless of whether the user was going to churn or not. We don't want to send a user a promotion if we don't have to, so we will build a model to predict if they will churn and send them the promotion if we think they will.
+
+To create a cost-benefit matrix we need establish a baseline; we can do this many different ways. You can think of the baseline as the planned budget for the company. Any non-zero values in the cost-benefit matrix are deviations from that budget.
+
+For example, suppose the baseline budget was created assuming no users will ever churn. So if a user wasn't going to churn and we predict that correctly (so don't send a promotion) then we're on budget.
+
+
+|                        | Actual Positive | Actual Negative |
+| ---------------------- |:---------------:|:---------------:|
+| **Predicted Positive** |                 |                 |
+| **Predicted Negative** |                 |         0       |
+
+If the user does churn and we don't send a promotion, we'll be at -$9 relative to the budget. If we predict they will churn we'll send a promotion, so we'll lose $3 whether they would have churned or not. So our final cost-benefit matrix is
+
+
+|                        | Actual Positive | Actual Negative |
+| ---------------------- |:---------------:|:---------------:|
+| **Predicted Positive** |       -3        |        -3       |
+| **Predicted Negative** |       -9        |         0       |
+
+Note that none of the cases are positive because our baseline budget was highly optimistic.
+
+Create additional cost-benefit matrix for the same scenario above using each of these four baseline budgets. Work these out individually and then discuss them with your partner to make sure you both understand them all.
+
+1. **All users churn.** This budget is highly pessimistic, so there should be a positive value if users don't churn and zero if they do (minus the cost of promotions).
+
+2. **Everyone gets a promotion.** Suppose the budget assumes that we will give a promotion to everyone. We will now make money if we don't give a promotion to someone who wasn't going to leave, but lose if we don't give a promotion to someone who does.
+
+3. **No one gets a promotion.** Suppose the budget assumes we aren't giving anyone promotions. Now the net profit is a measure of how much we will make by sending promotions to users we think might churn.
+
+Discuss each of these with your partner. How will the profit curves for these differ? How are they similar? Will the optimum threshold change?
+
+Use the cost-benefit matrix from 3 for the remainder of the assignment.
+
 ## Part 1: Profit Curves
 
 In this exercise, we are going to calculate the expected value given our cost-benefit matrix for a variety of binary classifiers at different thresholds.
@@ -6,7 +44,7 @@ The data we'll be working with can be found in `data/churn.csv`.
 
 ### Cost/Benefit and Profit Curve Example
 
-Before we start coding, let's make sure we understand how to calculate the points on a profit curve from a cost-benefit matrix. Take this really simple example of what the true labels are and the predicted probabilities.
+Before we start coding, let's make sure we understand how to calculate the points on a profit curve from the cost-benefit matrix above. Take this really simple example of what the true labels are and the predicted probabilities.
 
 Say we ran a model and got the following results:
 
@@ -16,12 +54,6 @@ Say we ran a model and got the following results:
 |       1     |      0     |          0.6          |
 |       2     |      1     |          0.4          |
 
-Here is our cost benefit matrix:
-
-|                        | Actual Positive | Actual Negative |
-| ---------------------- |:---------------:|:---------------:|
-| **Predicted Positive** |        6        |        -3       |
-| **Predicted Negative** |        0        |         0       |
 
 1. Write out the confusion matrix for each of the possible thresholds. There should be 4 confusion matrices.
 2. Calculate the expected profit for each of these confusion matrices.
@@ -43,14 +75,14 @@ Here is our cost benefit matrix:
     You may use sklearn's `confusion_matrix()` function here, but having it in the standard form will reduce the amount of banging your head against the wall.
 
     You can check how sklearn's function works by trying an example:
-    
+
     ```python
     In [1]: from sklearn.metrics import confusion_matrix
-    
+
     In [2]: y_true = [1, 1, 1, 1, 1, 0, 0]
-    
+
     In [3]: y_predict = [1, 1, 1, 1, 0, 0, 0]
-    
+
     In [4]: confusion_matrix(y_true, y_predict)
     Out[4]:
     array([[2, 0],
@@ -200,7 +232,7 @@ def oversample(X, y, tp):
     # order to attain target proportion
 
     # randomly select required number of positive observations with replacement
-    
+
     # combine new observations with original observations
 
     # return new, oversampled, observations
@@ -241,7 +273,7 @@ def smote(X, y, tp, k=None):
     # determine how many new positive observations to generate
 
     # generate synthetic observations
-    
+
     # combine synthetic observations with original observations
 
     return X_smoted, y_smoted
@@ -251,7 +283,7 @@ def smote(X, y, tp, k=None):
 
 1. Test your functions on the churn dataset with Logistic Regression.
 2. Try a range of target sample proportions with each of your sampling methods, and find the sample proportion that maximizes expected profit.
-3. Try the test in #2 several times, with a new train/test split each time. Does the expected profit and optimal sampling proportion vary substantially? How might you deal with this variance? 
+3. Try the test in #2 several times, with a new train/test split each time. Does the expected profit and optimal sampling proportion vary substantially? How might you deal with this variance?
 
 ## Extra Credit
 
