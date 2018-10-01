@@ -24,15 +24,15 @@ If the user does churn and we don't send a promotion, we'll be at -$9 relative t
 
 Note that none of the cases are positive because our baseline budget was highly optimistic.
 
-Create additional cost-benefit matrix for the same scenario above using each of these four baseline budgets. Work these out individually and then discuss them with your partner to make sure you both understand them all.
+Create additional cost-benefit matrix for the same scenario above using each of the three baseline budgets below. Work these out individually and then discuss them with your partner to make sure you both understand them all.
 
 1. **All users churn.** This budget is highly pessimistic, so there should be a positive value if users don't churn and zero if they do (minus the cost of promotions).
 
-2. **Everyone gets a promotion.** Suppose the budget assumes that we will give a promotion to everyone. We will now make money if we don't give a promotion to someone who wasn't going to leave, but lose if we don't give a promotion to someone who does.
+2. **Everyone gets a promotion.** Suppose the budget assumes that we will give a promotion to everyone and as a result, no one churns (imagine that this is what happened last year and you're trying to improve on this with your model). We will now make money if we don't give a promotion to someone who wasn't going to leave, but lose if we don't give a promotion to someone who does.
 
-3. **No one gets a promotion.** Suppose the budget assumes we aren't giving anyone promotions. Now the net profit is a measure of how much we will make by sending promotions to users we think might churn.
+3. **No one gets a promotion.** Suppose the budget assumes we aren't giving anyone promotions (again, assume this happened last year). Now the net profit is a measure of how much we will make by sending promotions to users we think might churn.
 
-Discuss each of these with your partner. How will the profit curves for these differ? How are they similar? Will the optimum threshold change?
+Discuss each of these with your partner. How are the for matrices similar? How will the profit curves for these differ? How are they similar? Will the optimum threshold change?
 
 Use the cost-benefit matrix from 3 for the remainder of the assignment.
 
