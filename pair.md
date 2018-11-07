@@ -6,7 +6,7 @@ Suppose we have a business and we're concerned about users churning (leaving). E
 
 To create a cost-benefit matrix we need establish a baseline; we can do this many different ways. You can think of the baseline as the planned budget for the company. Any non-zero values in the cost-benefit matrix are deviations from that budget.
 
-For example, suppose the baseline budget was created assuming no users will ever churn. So if a user wasn't going to churn and we predict that correctly (so don't send a promotion) then we're on budget.
+For example, suppose the baseline budget was created assuming no users will ever churn. In the tables below, "Actual Negative" means the user is happy and won't churn, while "Actual Positive" means a user is at risk of churning, so they will leave if they don't get a promo (Predicted Negative) but if we send them one they will stay. So if a user wasn't going to churn and we predict that correctly (so don't send a promotion) then we're on budget.
 
 
 |                        | Actual Positive | Actual Negative |
@@ -14,7 +14,7 @@ For example, suppose the baseline budget was created assuming no users will ever
 | **Predicted Positive** |                 |                 |
 | **Predicted Negative** |                 |         0       |
 
-If the user does churn and we don't send a promotion, we'll be at -$9 relative to the budget. If we predict they will churn we'll send a promotion, so we'll lose $3 whether they would have churned or not. So our final cost-benefit matrix is
+If the user does churn and we don't send a promotion, we'll be at -$9 relative to the budget. If we predict they will churn we'll send a promotion and they will definitely stay, so we'll lose $3 whether they would have churned or not. So our final cost-benefit matrix is
 
 
 |                        | Actual Positive | Actual Negative |
